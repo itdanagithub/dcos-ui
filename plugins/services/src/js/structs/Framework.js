@@ -8,13 +8,18 @@ import Application from "./Application";
 import FrameworkSpec from "./FrameworkSpec";
 
 module.exports = class Framework extends Application {
-  getName() {
+  getPackageName() {
+    const labels = this.getLabels();
+    if (labels && labels.DCOS_PACKAGE_NAME) {
+      return labels.DCOS_PACKAGE_NAME;
+    }
+  }
+
+  getFrameworkName() {
     const labels = this.getLabels();
     if (labels && labels.DCOS_PACKAGE_FRAMEWORK_NAME) {
       return labels.DCOS_PACKAGE_FRAMEWORK_NAME;
     }
-
-    return super.getName();
   }
 
   getNodeIDs() {
